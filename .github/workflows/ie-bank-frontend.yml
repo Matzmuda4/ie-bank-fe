@@ -4,7 +4,7 @@
 name: ie-bank-frontend
 
 on:
-  push:
+  pull_request:
     branches:
       - main
   workflow_dispatch:
@@ -61,6 +61,7 @@ jobs:
         with:
           app-name: ${{ env.FRONTEND_WEBAPP_DEV }}
           package: .
+          
   build-uat:
     runs-on: ubuntu-latest
 
