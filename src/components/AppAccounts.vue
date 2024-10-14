@@ -30,6 +30,7 @@
                 <td>{{ account.account_number }}</td>
                 <td>{{ account.balance }}</td>
                 <td>{{ account.currency }}</td>
+                <td>{{ account.country }}</td>
                 <td>
                   <span v-if="account.status == 'Active'" class="badge badge-success">{{ account.status }}</span>
                   <span v-else class="badge badge-danger">{{ account.status }}</span>
