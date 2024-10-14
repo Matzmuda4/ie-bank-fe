@@ -5,6 +5,7 @@ name: ie-bank-frontend
 
 on:
   push:
+    branches: [ "*" ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
