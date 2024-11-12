@@ -1,0 +1,32 @@
+# Build Stage: This is where the frontend code is built
+FROM node:lts-alpine AS build-stage
+
+# Set build argument to choose between development and production mode
+ARG MODE
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the package.json and package-lock.json to install dependencies
+COPY package*.json ./
+
+# Install project dependencies
+RUN npm install
+
+# Copy the rest of the project files
+COPY . .
+
+# Run the build process (npm run build) for the specified mode (development or production)
+RUN npm run build:${MODE}
+
+# Run Stage: This is where we set up the Nginx server to serve the built project
+FROM nginx:stable-alpine AS run-stage
+
+# Copy the build output from the build stage to Nginx's public directory
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+
+# Expose port 80 for the Nginx server
+EXPOSE 80
+
+# Start Nginx when the container runs
+CMD ["nginx", "-g", "daemon off;"]
